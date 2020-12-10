@@ -11,18 +11,18 @@ console.log(special[25]);
 console.log(special.length);
 
 
-function randLwr() {
-  var pick = lwrcase[Math.floor(Math.random() * 26)];
-  return pick;
-}
-function randUppr() {
-  var pick = upprcase[Math.floor(Math.random() * 26)];
-  return pick;
-}
-function randSpecial() {
-  var pick = lwrcase[Math.floor(Math.random() * 33)];
-  return pick;
-}
+// function randLwr() {
+//   var pick = lwrcase[Math.floor(Math.random() * 26)];
+  
+// }
+// function randUppr() {
+//   var pick = upprcase[Math.floor(Math.random() * 26)];
+  
+// }
+// function special() {
+//   var pick = special[Math.floor(Math.random() * 33)];
+  
+// }
 
 
 
@@ -41,22 +41,49 @@ function generatePassword() {
   do_special = confirm("Include special characters?");        // determining if to include special characters in randomization
 
   var pwd = [];
+  var list_chooser = 0;
 
   for (i = 0; i < pwd_lngth; i++) {
 
+    if (!do_uppr && !do_special) {
+      pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+    }
 
-    if (do_uppr && do special) {
 
-      var list_chooser = Math.floor(Math.random() * 3)
-
+    if (do_uppr && !do_special) {     //uppercase yes, special no
+      list_chooser = Math.floor(Math.random() * 2);
       if (list_chooser === 0) {
-        pwd.push(randLwr); //adding to end of pwd array, a rand entry from lwrcase
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
       }
       if (list_chooser === 1) {
-        pwd.push(randUppr); //adding to end of pwd array, a rand entry from lwrcase
+        pwd.push(upprcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from upprcase
+      }
+    }
+
+
+    if (!do_uppr && do_special) {     //uppercase no, special yes
+      list_chooser = Math.floor(Math.random() * 2);
+      if (list_chooser === 0) {
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+      }
+      if (list_chooser === 1) {
+        pwd.push(special[Math.floor(Math.random() * 33)]); //adding to end of pwd array, a rand entry from special
+      }
+    }
+
+
+    if (do_uppr && do_special) {            //all three lists are possible
+
+      list_chooser = Math.floor(Math.random() * 3);
+
+      if (list_chooser === 0) {
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+      }
+      if (list_chooser === 1) {
+        pwd.push(upprcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from upprcase
       }
       if (list_chooser === 2) {
-        pwd.push(randLwr); //adding to end of pwd array, a rand entry from lwrcase
+        pwd.push(special[Math.floor(Math.random() * 33)]); //adding to end of pwd array, a rand entry from special
       }
     }
 
