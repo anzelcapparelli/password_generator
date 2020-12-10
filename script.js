@@ -31,6 +31,7 @@ console.log(special.length);
 function generatePassword() {
 
   var pwd_lngth = parseInt(prompt("Please choose a password character length"));
+
   while (!(pwd_lngth >= 8 && pwd_lngth <= 128)) {
 
     alert("Password must be no less than 8 characters and no more than 128 characters");
@@ -44,57 +45,41 @@ function generatePassword() {
   do_special = confirm("Include special characters?");        // determining if to include special characters in randomization
 
   var pwd = [];
-  var list_cat = [];
-  var list_chooser = 0;
+  var cat_list = [];
+  var cat_length = 26;    //min length due to lwrcase
+
+
+  if (do_num) {
+    cat_list = lwrcase + num;
+    cat_length = cat_length + num.length
+  }
+
+  if (do_uppr) {     //lower and uppercase only
+    cat_list = cat_list + upprcase;
+    cat_length = cat_length + upprcase.length;
+  }
+
+  if (do_special) {     //lower and uppercase only
+    cat_list = cat_list + special;
+    cat_length = cat_length + special.length;
+  }
+
+  console.log(cat_list);
+  console.log(cat_length);
+
 
   for (i = 0; i < pwd_lngth; i++) {         //random generation and storage!
 
-    if (!do_num & !do_uppr && !do_special) {
-      pwd.push(lwrcase[Math.floor(Math.random() * lwrcase.length)]); //adding to end of pwd array, a rand entry from lwrcase
-    }
 
-
-    if (!do_num && do_uppr && !do_special) {     //lower and uppercase only
-      list_cat = lwrcase + upprcase;
-      pwd.push(list_cat[Math.floor(Math.random()) * (lwrcase.length + upprcase.length) ]);
-    }
-
-    if (!do_num && !do_uppr && do_special) {     //lowercase and special only
-      list_cat = lwrcase + special;
-      pwd.push(list_cat[Math.floor(Math.random()) * (lwrcase.length + special.length) ]);
-    }
-
-    if (do_num && !do_uppr && !do_special) {     //lowercase and numbers only
-      list_cat = lwrcase + num;
-      pwd.push(list_cat[Math.floor(Math.random()) * (lwrcase.length + num.length) ]);
-    }
-
-
-
-
-    if (do_uppr && do_special) {            //all three lists are possible
-
-      list_chooser = Math.floor(Math.random() * 3);
-
-      if (list_chooser === 0) {
-        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
-      }
-      if (list_chooser === 1) {
-        pwd.push(upprcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from upprcase
-      }
-      if (list_chooser === 2) {
-        pwd.push(special[Math.floor(Math.random() * 33)]); //adding to end of pwd array, a rand entry from special
-      }
-    }
-
+    pwd.push(cat_list[Math.floor(Math.random() * cat_length)]); //adding to end of pwd array, a rand entry from special
   }
 
   var cat_pwd = pwd.join('');
   return cat_pwd
 
+
+
 }
-
-
 
 
 // Write password to the #password input

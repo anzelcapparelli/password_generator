@@ -9,6 +9,7 @@ var do_num = false;
 var do_uppr = false;
 var do_special = false;
 
+
 console.log(special[25]);
 console.log(special.length);
 
@@ -108,3 +109,4 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
