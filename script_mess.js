@@ -2,44 +2,33 @@
 var generateBtn = document.querySelector("#generate");
 
 var lwrcase = "abcdefghijklmnopqrstuvwxyz";
+var upprcase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var special = " !\"#$%&\'()*+,-./:;<=>?@[]\\^_`{|}~";
+var num = "0123456789";
+var do_num = false;
+var do_uppr = false;
+var do_special = false;
+
+console.log(special[25]);
+console.log(special.length);
+
+
+// function randLwr() {
+//   var pick = lwrcase[Math.floor(Math.random() * 26)];
+
+// }
+// function randUppr() {
+//   var pick = upprcase[Math.floor(Math.random() * 26)];
+
+// }
+// function special() {
+//   var pick = special[Math.floor(Math.random() * 33)];
+
+// }
 
 
 
-
-
-
-// trying to see if this runs
-
-
-
-function generatePassword(pwd_lngth) {
- 
-  console.log(pwd_lngth);
-
-  var pwd = [];
-
-  // for (i = 0; i < 8; i++) {
-  //   pwd[i] = lwrcase[Math.floor(Math.random() * 26)];
-  // }
-
-  for (i = 0; i < pwd_lngth; i++) {
-    pwd.push(lwrcase[Math.floor(Math.random() * 26)]);    //adding to end of pwd array, a rand entry from lwrcase
-  }
-
-  var cat_pwd = pwd.join('');
-
-  console.log(pwd);
-  console.log(cat_pwd);
-  console.log(pwd_lngth);
-
-  return cat_pwd
-}
-
-// NEED TO FIGURE OUT HOW TO RESET ARRAY SIZE
-
-
-// Write password to the #password input
-function writePassword() {                                                                              //FIRST
+function generatePassword() {
 
   var pwd_lngth = parseInt(prompt("Please choose a password character length"));
   while (!(pwd_lngth >= 8 && pwd_lngth <= 128)) {
@@ -48,18 +37,75 @@ function writePassword() {                                                      
 
     pwd_lngth = parseInt(prompt("Please choose a password character length within the accepted range"));
 
-console.log(pwd_lngth)
-
-    generatePassword(pwd_lngth);
   }
 
-  // ^^^ gets proper password length 
+  do_num = confirm("Include numbers?");        // determining if to include numbers in randomization
+  do_uppr = confirm("Include capitalized letters?");        // determining if to include uppercase in randomization
+  do_special = confirm("Include special characters?");        // determining if to include special characters in randomization
 
-  var password = generatePassword();    //randomizes password for that length
+  var pwd = [];
+  var list_chooser = 0;
 
-  var passwordText = document.querySelector("#password");   //passwordText is what's in card
+  for (i = 0; i < pwd_lngth; i++) {
 
-  passwordText.value = password;  //updates card so it matches the password
+    if (!do_num & !do_uppr && !do_special) {
+      pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+    }
+
+
+    if (!do_num && do_uppr && !do_special) {     //uppercase yes, special no
+      list_chooser = Math.floor(Math.random() * 2);
+      if (list_chooser === 0) {
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+      }
+      if (list_chooser === 1) {
+        pwd.push(upprcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from upprcase
+      }
+    }
+
+
+    if (!do_num && !do_uppr && do_special) {     //uppercase no, special yes
+      list_chooser = Math.floor(Math.random() * 2);
+      if (list_chooser === 0) {
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+      }
+      if (list_chooser === 1) {
+        pwd.push(special[Math.floor(Math.random() * 33)]); //adding to end of pwd array, a rand entry from special
+      }
+    }
+
+
+    if (do_uppr && do_special) {            //all three lists are possible
+
+      list_chooser = Math.floor(Math.random() * 3);
+
+      if (list_chooser === 0) {
+        pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
+      }
+      if (list_chooser === 1) {
+        pwd.push(upprcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from upprcase
+      }
+      if (list_chooser === 2) {
+        pwd.push(special[Math.floor(Math.random() * 33)]); //adding to end of pwd array, a rand entry from special
+      }
+    }
+
+  }
+
+  var cat_pwd = pwd.join('');
+  return cat_pwd
+
+}
+
+
+
+
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
+
+  passwordText.value = password;
 
 }
 

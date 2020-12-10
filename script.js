@@ -4,6 +4,8 @@ var generateBtn = document.querySelector("#generate");
 var lwrcase = "abcdefghijklmnopqrstuvwxyz";
 var upprcase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var special = " !\"#$%&\'()*+,-./:;<=>?@[]\\^_`{|}~";
+var num = "0123456789";
+var do_num = false;
 var do_uppr = false;
 var do_special = false;
 
@@ -13,15 +15,15 @@ console.log(special.length);
 
 // function randLwr() {
 //   var pick = lwrcase[Math.floor(Math.random() * 26)];
-  
+
 // }
 // function randUppr() {
 //   var pick = upprcase[Math.floor(Math.random() * 26)];
-  
+
 // }
 // function special() {
 //   var pick = special[Math.floor(Math.random() * 33)];
-  
+
 // }
 
 
@@ -37,6 +39,7 @@ function generatePassword() {
 
   }
 
+  do_num = confirm("Include numbers?");        // determining if to include numbers in randomization
   do_uppr = confirm("Include capitalized letters?");        // determining if to include uppercase in randomization
   do_special = confirm("Include special characters?");        // determining if to include special characters in randomization
 
@@ -45,12 +48,12 @@ function generatePassword() {
 
   for (i = 0; i < pwd_lngth; i++) {
 
-    if (!do_uppr && !do_special) {
+    if (!do_num & !do_uppr && !do_special) {
       pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
     }
 
 
-    if (do_uppr && !do_special) {     //uppercase yes, special no
+    if (!do_num && do_uppr && !do_special) {     //uppercase yes, special no
       list_chooser = Math.floor(Math.random() * 2);
       if (list_chooser === 0) {
         pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
@@ -61,7 +64,7 @@ function generatePassword() {
     }
 
 
-    if (!do_uppr && do_special) {     //uppercase no, special yes
+    if (!do_num && !do_uppr && do_special) {     //uppercase no, special yes
       list_chooser = Math.floor(Math.random() * 2);
       if (list_chooser === 0) {
         pwd.push(lwrcase[Math.floor(Math.random() * 26)]); //adding to end of pwd array, a rand entry from lwrcase
