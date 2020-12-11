@@ -37,6 +37,6 @@ if (do_num) {                                    //if numbers are allowed, add i
 
 ### Links
 
-[Deployed Website](https://guides.github.com/features/mastering-markdown/).
-[GitHub Repository](https://github.com/microsoft/vscode).
+[Deployed Website](https://anzelcapparelli.github.io/password_generator/).
+[GitHub Repository](https://github.com/anzelcapparelli/password_generator).
 
